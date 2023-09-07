@@ -1,4 +1,4 @@
-package it.busz.empik.data.model;
+package it.busz.empik.github.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,13 +13,12 @@ import lombok.Setter;
 @Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
-public class User{
+@Getter
+class User {
     @Id
     @GeneratedValue
     private Long id;
-    @Getter
     private String login;
-    @Getter
     @Setter
     private Long requestCount;
 }

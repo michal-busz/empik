@@ -1,4 +1,4 @@
-package it.busz.empik.data.model;
+package it.busz.empik.github.infrastructure.api;
 
 import java.net.URI;
 import java.time.Instant;

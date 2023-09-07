@@ -1,4 +1,4 @@
-package it.busz.empik.data.model;
+package it.busz.empik.github.domain.external;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,7 +7,7 @@ import java.net.URI;
 import java.time.Instant;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record UserExternalDto(
+record UserExternalDto(
         Long id,
         String login,
         String name,
