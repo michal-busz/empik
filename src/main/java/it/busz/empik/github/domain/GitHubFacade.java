@@ -32,7 +32,7 @@ public class GitHubFacade {
     private void incrementRequestCount(String login) {
         if (userRepository.existsByLoginIgnoreCase(login)) {
             log.info("Login {} already exists, incrementing counter", login);
-            userRepository.updateCounter(login);
+            userRepository.incrementCounter(login);
         } else {
             log.info("Login {} does not exist, saving user with default counter", login);
             final var user = new User(null, login, DEFAULT_COUNTER);

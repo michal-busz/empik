@@ -10,7 +10,7 @@ interface UserRepository extends JpaRepository<User, Long> {
     @Transactional
     @Modifying
     @Query("update User u set u.requestCount = u.requestCount + 1 where upper(u.login) = upper(?1)")
-    void updateCounter(@NonNull String login);
+    void incrementCounter(@NonNull String login);
 
     boolean existsByLoginIgnoreCase(@NonNull String login);
 }
