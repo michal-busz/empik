@@ -13,6 +13,9 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class GitHubServiceTest {
     private static final String exampleLogin = "login";
+    private static final Double followersDividend = 6.0;
+    private static final Double publicReposAddition = 2.0;
+
     @Mock
     private GitHubClient gitHubClient;
 
@@ -23,7 +26,7 @@ class GitHubServiceTest {
                 Instant.now(), 12L, 1L);
         when(gitHubClient.getUser(exampleLogin)).thenReturn(externalUser);
         // when
-        final var user = new GitHubServiceImpl(gitHubClient).getUser(exampleLogin);
+        final var user = new GitHubServiceImpl(gitHubClient, followersDividend, publicReposAddition).getUser(exampleLogin);
 
         // then
         verify(gitHubClient, times(1)).getUser(exampleLogin);
@@ -33,14 +36,15 @@ class GitHubServiceTest {
     @Test
     void shouldCalculateForZeroFollowers() {
         // given
+        final var followers = 0L;
         final var externalUser = new UserExternalDto(1L, exampleLogin, "name", "user", URI.create("https://test.test"),
-                Instant.now(), 0L, 1L);
+                Instant.now(), followers, 1L);
         when(gitHubClient.getUser(exampleLogin)).thenReturn(externalUser);
         // when
-        final var user = new GitHubServiceImpl(gitHubClient).getUser(exampleLogin);
+        final var user = new GitHubServiceImpl(gitHubClient, followersDividend, publicReposAddition).getUser(exampleLogin);
 
         // then
         verify(gitHubClient, times(1)).getUser(exampleLogin);
-        assert Double.isInfinite(user.calculations());
+        assert user.calculations() == 0.0;
     }
 }

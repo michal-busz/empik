@@ -26,6 +26,7 @@ class GitHubFacadeTest {
         final var userDto = new UserDto(1L, exampleLogin, "name", "user", URI.create("https://test.test"),
                 Instant.now(), 1.5);
         when(gitHubService.getUser(exampleLogin)).thenReturn(userDto);
+        when(userRepository.existsByLoginIgnoreCase(exampleLogin)).thenReturn(true);
 
         // when
         new GitHubFacade(userRepository, gitHubService).getUser(exampleLogin);

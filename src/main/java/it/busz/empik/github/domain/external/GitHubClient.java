@@ -9,25 +9,21 @@ import org.springframework.web.client.RestTemplate;
 @Component
 @Slf4j
 class GitHubClient {
-    private final String userApiUrl;
+    private final String usersApiUrl;
     private final RestTemplate restTemplate;
 
     public GitHubClient(
-            @Value("${github.api.user.url}") String userApiUrl,
+            @Value("${github.api.users.url}") String usersApiUrl,
             RestTemplate restTemplate
     ) {
         this.restTemplate = restTemplate;
-        this.userApiUrl = userApiUrl;
+        this.usersApiUrl = usersApiUrl;
     }
 
     public UserExternalDto getUser(final String login) {
         try {
-            final var requestUrl = userApiUrl + login;
+            final var requestUrl = usersApiUrl + login;
             final var response = restTemplate.getForEntity(requestUrl, UserExternalDto.class);
-            if (!response.hasBody()) {
-                log.warn("Response contains empty body for login {}", login);
-                throw new IllegalStateException("Response from GitHub is empty/null");
-            }
             return response.getBody();
         } catch (RestClientException e) {
             log.error("Exception occurred upon getting user with login {}", login, e);

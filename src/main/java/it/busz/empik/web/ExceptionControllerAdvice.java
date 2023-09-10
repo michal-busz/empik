@@ -4,7 +4,6 @@ import io.micrometer.tracing.Tracer;
 import it.busz.empik.web.exception.BadRequestException;
 import it.busz.empik.web.exception.ResourceNotFoundException;
 import it.busz.empik.web.exception.RestException;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -20,10 +19,13 @@ import static it.busz.empik.web.GlobalErrorMessageCodes.UNKNOWN_ERROR;
 
 @Slf4j
 @ControllerAdvice
-@RequiredArgsConstructor
 class ExceptionControllerAdvice {
     private static final String UNKNOWN_ERROR_MESSAGE = "Unknown error";
     private final Tracer tracer;
+
+    ExceptionControllerAdvice(Tracer tracer) {
+        this.tracer = tracer;
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BadRequestException.class)
