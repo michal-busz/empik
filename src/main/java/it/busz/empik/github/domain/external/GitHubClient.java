@@ -26,7 +26,7 @@ class GitHubClient {
             final var response = restTemplate.getForEntity(requestUrl, UserExternalDto.class);
             return response.getBody();
         } catch (RestClientException e) {
-            log.error("Exception occurred upon getting user with login {}", login, e);
+            log.error("Exception occurred upon getting user with login {} ", login, e);
             throw e;
         }
     }
